@@ -1,0 +1,25 @@
+{
+  "name": "litphp/middlewares",
+  "license": "ISC",
+  "authors": [
+    {
+      "name": "McFog Wang",
+      "email": "mcfogw@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Lit\\Middlewares\\": "src"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "litphp/nimo": ">=0.2.0"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.5.x-dev"
+    }
+  }
+}
