@@ -3,11 +3,13 @@
 use Dflydev\FigCookies\Cookies;
 use Dflydev\FigCookies\SetCookie;
 use Dflydev\FigCookies\SetCookies;
+use Lit\Middlewares\Traits\MiddlewareTrait;
 use Nimo\AbstractMiddleware;
-use Psr\Http\Message\ServerRequestInterface;
 
 class FigCookiesMiddleware extends AbstractMiddleware
 {
+    use MiddlewareTrait;
+
     const ATTR_KEY = self::class;
     /**
      * @var Cookies
@@ -17,22 +19,6 @@ class FigCookiesMiddleware extends AbstractMiddleware
      * @var SetCookies
      */
     protected $responseCookies;
-
-    /**
-     * @param ServerRequestInterface $request
-     * @return static
-     */
-    public static function fromRequest(ServerRequestInterface $request)
-    {
-        if (!$instance = $request->getAttribute(static::ATTR_KEY)) {
-            throw new \RuntimeException('middleware not found:' . static::ATTR_KEY);
-        }
-        if (!$instance instanceof static) {
-            throw new \RuntimeException('middleware class error:' . static::ATTR_KEY);
-        }
-
-        return $instance;
-    }
 
     /**
      * @return Cookies
