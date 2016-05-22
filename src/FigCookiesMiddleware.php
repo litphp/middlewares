@@ -124,10 +124,8 @@ class FigCookiesMiddleware extends AbstractMiddleware
 
     protected function main()
     {
-        if ($this->request->getAttribute(static::ATTR_KEY)) {
-            throw new \RuntimeException('middleware collision:' . static::ATTR_KEY);
-        }
-
+        $this->attachToRequest();
+        
         $this->requestCookies = Cookies::fromRequest($this->request);
         $this->responseCookies = new SetCookies;
 
