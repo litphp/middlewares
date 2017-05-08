@@ -2,6 +2,12 @@
 
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * Class MiddlewareTrait
+ * @package Lit\Middlewares\Traits
+ *
+ * @property ServerRequestInterface $request
+ */
 trait MiddlewareTrait
 {
     /**
@@ -20,11 +26,16 @@ trait MiddlewareTrait
         return $instance;
     }
 
-    protected function attachToRequest()
+    /**
+     * @param ServerRequestInterface $request
+     * @return ServerRequestInterface
+     */
+    protected function attachToRequest(ServerRequestInterface $request)
     {
-        if ($this->request->getAttribute(static::ATTR_KEY)) {
+        if ($request->getAttribute(static::ATTR_KEY)) {
             throw new \RuntimeException('middleware collision:' . static::ATTR_KEY);
         }
-        $this->request = $this->request->withAttribute(static::ATTR_KEY, $this);
+
+        return $request->withAttribute(static::ATTR_KEY, $this);
     }
 }

@@ -15,11 +15,11 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "litphp/nimo": ">=0.2.0"
+    "litphp/lit": "^0.7.0"
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.5.x-dev"
+      "dev-master": "0.6.x-dev"
     }
   }
 }
