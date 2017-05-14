@@ -3,10 +3,8 @@
 use Dflydev\FigCookies\Cookies;
 use Dflydev\FigCookies\SetCookie;
 use Dflydev\FigCookies\SetCookies;
-use Interop\Http\ServerMiddleware\DelegateInterface;
 use Lit\Core\AbstractMiddleware;
 use Lit\Middlewares\Traits\MiddlewareTrait;
-use Psr\Http\Message\ServerRequestInterface;
 
 class FigCookiesMiddleware extends AbstractMiddleware
 {
@@ -123,14 +121,15 @@ class FigCookiesMiddleware extends AbstractMiddleware
         return $this;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
-    {
-        $request = $this->attachToRequest($request);
 
-        $this->requestCookies = Cookies::fromRequest($request);
+    protected function main()
+    {
+        $this->attachToRequest();
+
+        $this->requestCookies = Cookies::fromRequest($this->request);
         $this->responseCookies = new SetCookies;
 
-        $response = $delegate->process($request);
+        $response = $this->next();
 
         $cookies = SetCookies::fromResponse($response);
         foreach ($this->responseCookies->getAll() as $setCookie) {

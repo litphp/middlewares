@@ -30,12 +30,14 @@ trait MiddlewareTrait
      * @param ServerRequestInterface $request
      * @return ServerRequestInterface
      */
-    protected function attachToRequest(ServerRequestInterface $request)
+    protected function attachToRequest(ServerRequestInterface $request = null)
     {
+        $request = $request ?: $this->request;
+
         if ($request->getAttribute(static::ATTR_KEY)) {
             throw new \RuntimeException('middleware collision:' . static::ATTR_KEY);
         }
 
-        return $request->withAttribute(static::ATTR_KEY, $this);
+        return $this->request = $request->withAttribute(static::ATTR_KEY, $this);
     }
 }
