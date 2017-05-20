@@ -5,6 +5,7 @@ use Dflydev\FigCookies\SetCookie;
 use Dflydev\FigCookies\SetCookies;
 use Lit\Core\AbstractMiddleware;
 use Lit\Middlewares\Traits\MiddlewareTrait;
+use Psr\Http\Message\ResponseInterface;
 
 class FigCookiesMiddleware extends AbstractMiddleware
 {
@@ -122,7 +123,7 @@ class FigCookiesMiddleware extends AbstractMiddleware
     }
 
 
-    protected function main()
+    protected function main():ResponseInterface
     {
         $this->attachToRequest();
 
