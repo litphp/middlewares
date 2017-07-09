@@ -66,29 +66,7 @@ class FigCookiesMiddleware extends AbstractMiddleware
     )
     {
         if (!$value instanceof SetCookie) {
-            if (is_string($value)) {
-                $value = SetCookie::create($name, $value);
-            } elseif (count($args = func_get_args()) > 2) {
-                $value = SetCookie::create($name, $value);
-                if (isset($domain)) {
-                    $value = $value->withDomain($domain);
-                }
-                if (isset($expires)) {
-                    $value = $value->withExpires($expires);
-                }
-                if (isset($httpOnly)) {
-                    $value = $value->withHttpOnly($httpOnly);
-                }
-                if (isset($maxAge)) {
-                    $value = $value->withMaxAge($maxAge);
-                }
-                if (isset($path)) {
-                    $value = $value->withPath($path);
-                }
-                if (isset($secure)) {
-                    $value = $value->withSecure($secure);
-                }
-            } elseif (is_array($value)) {
+            if (is_array($value)) {
                 $arr = $value;
                 $value = SetCookie::create($name, $arr['value']);
                 if (isset($arr['domain'])) {
@@ -109,6 +87,28 @@ class FigCookiesMiddleware extends AbstractMiddleware
                 if (isset($arr['secure'])) {
                     $value = $value->withSecure($arr['secure']);
                 }
+            } elseif (count($args = func_get_args()) > 2) {
+                $value = SetCookie::create($name, $value);
+                if (isset($domain)) {
+                    $value = $value->withDomain($domain);
+                }
+                if (isset($expires)) {
+                    $value = $value->withExpires($expires);
+                }
+                if (isset($httpOnly)) {
+                    $value = $value->withHttpOnly($httpOnly);
+                }
+                if (isset($maxAge)) {
+                    $value = $value->withMaxAge($maxAge);
+                }
+                if (isset($path)) {
+                    $value = $value->withPath($path);
+                }
+                if (isset($secure)) {
+                    $value = $value->withSecure($secure);
+                }
+            } elseif (is_string($value)) {
+                $value = SetCookie::create($name, $value);
             }
         }
 
