@@ -115,6 +115,21 @@ class FigCookiesMiddleware extends AbstractMiddleware
         $this->responseCookies = $this->responseCookies->with($value);
     }
 
+    public function setResponseCookies(
+        array $cookies,
+        $domain = null,
+        $expires = null,
+        $httpOnly = null,
+        $maxAge = null,
+        $path = null,
+        $secure = null
+    ) {
+        foreach ($cookies as $key => $value) {
+            $this->setResponseCookie($key, $value, $domain,$expires,$httpOnly,$maxAge,$path,$secure);
+        }
+        return $this;
+    }
+
     public function unsetResponseCookie($name)
     {
         $this->responseCookies = $this->responseCookies->without($name);

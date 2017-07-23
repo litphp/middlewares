@@ -5,8 +5,6 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * Class MiddlewareTrait
  * @package Lit\Middlewares\Traits
- *
- * @property ServerRequestInterface $request
  */
 trait MiddlewareTrait
 {
@@ -32,6 +30,9 @@ trait MiddlewareTrait
      */
     protected function attachToRequest(ServerRequestInterface $request = null)
     {
+        /**
+         * @var ServerRequestInterface $request
+         */
         $request = $request ?: $this->request;
 
         if ($request->getAttribute(static::ATTR_KEY)) {
