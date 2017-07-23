@@ -48,20 +48,20 @@ class FigCookiesMiddleware extends AbstractMiddleware
      * @param $name
      * @param mixed $value
      * @param $domain
-     * @param $expires
-     * @param $httpOnly
-     * @param $maxAge
      * @param $path
+     * @param $expires
+     * @param $maxAge
+     * @param $httpOnly
      * @param $secure
      */
     public function setResponseCookie(
         $name,
         $value,
         $domain = null,
-        $expires = null,
-        $httpOnly = null,
-        $maxAge = null,
         $path = null,
+        $expires = null,
+        $maxAge = null,
+        $httpOnly = null,
         $secure = null
     )
     {
@@ -118,14 +118,14 @@ class FigCookiesMiddleware extends AbstractMiddleware
     public function setResponseCookies(
         array $cookies,
         $domain = null,
-        $expires = null,
-        $httpOnly = null,
-        $maxAge = null,
         $path = null,
+        $expires = null,
+        $maxAge = null,
+        $httpOnly = null,
         $secure = null
     ) {
         foreach ($cookies as $key => $value) {
-            $this->setResponseCookie($key, $value, $domain,$expires,$httpOnly,$maxAge,$path,$secure);
+            $this->setResponseCookie($key, $value, $domain, $path, $expires, $maxAge, $httpOnly, $secure);
         }
         return $this;
     }
