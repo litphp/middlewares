@@ -12,13 +12,14 @@ trait MiddlewareTrait
      * @param ServerRequestInterface $request
      * @return static
      */
-    public static function fromRequest(ServerRequestInterface $request)
+    public static function fromRequest(ServerRequestInterface $request): self
     {
-        if (!$instance = $request->getAttribute(static::ATTR_KEY)) {
-            throw new \RuntimeException('middleware not found:' . static::ATTR_KEY);
+        $key = defined('static::ATTR_KEY') ? static::ATTR_KEY : static::class;
+        if (!$instance = $request->getAttribute($key)) {
+            throw new \RuntimeException('middleware not found:' . $key);
         }
         if (!$instance instanceof static) {
-            throw new \RuntimeException('middleware class error:' . static::ATTR_KEY);
+            throw new \RuntimeException('middleware class error:' . $key);
         }
 
         return $instance;
@@ -35,10 +36,11 @@ trait MiddlewareTrait
          */
         $request = $request ?: $this->request;
 
-        if ($request->getAttribute(static::ATTR_KEY)) {
-            throw new \RuntimeException('middleware collision:' . static::ATTR_KEY);
+        $key = defined('static::ATTR_KEY') ? static::ATTR_KEY : static::class;
+        if ($request->getAttribute($key)) {
+            throw new \RuntimeException('middleware collision:' . $key);
         }
 
-        return $this->request = $request->withAttribute(static::ATTR_KEY, $this);
+        return $this->request = $request->withAttribute($key, $this);
     }
 }

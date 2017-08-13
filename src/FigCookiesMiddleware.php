@@ -10,8 +10,6 @@ use Psr\Http\Message\ResponseInterface;
 class FigCookiesMiddleware extends AbstractMiddleware
 {
     use MiddlewareTrait;
-
-    const ATTR_KEY = self::class;
     /**
      * @var Cookies
      */
